@@ -133,3 +133,17 @@ function rotateQuickFacts() {
 }
 
 setTimeout(rotateQuickFacts, 3000);
+
+document.addEventListener('DOMContentLoaded', function() {
+    const storiesLink = document.querySelector('.stories-link');
+    const dropdownContent = document.querySelector('.dropdown-content');
+
+    if (storiesLink && dropdownContent) {
+        storiesLink.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdownContent.classList.toggle('show');
+            }
+        });
+    }
+});
