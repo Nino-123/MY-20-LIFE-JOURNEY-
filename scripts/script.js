@@ -1,46 +1,45 @@
 // Hamburger Menu Toggle
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('navMenu');
+const hamburger = document.getElementById('hamburger'); // Hamburger icon element
+const navMenu = document.getElementById('navMenu');     // Navigation menu element
 
+// Toggle navigation menu visibility on hamburger click
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
 });
 
 // Image Slider
-let slideIndex = 1;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
+let slideIndex = 1; // Current slide index
+const slides = document.querySelectorAll('.slide'); // All slide elements
+const dots = document.querySelectorAll('.dot');     // All navigation dots
 
+// Show the slide at index n
 function showSlides(n) {
     if (n > slides.length) slideIndex = 1;
     if (n < 1) slideIndex = slides.length;
-    
     slides.forEach(slide => slide.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
-    
     slides[slideIndex - 1].classList.add('active');
     dots[slideIndex - 1].classList.add('active');
 }
 
+// Set current slide by index
 function currentSlide(n) {
     slideIndex = n;
     showSlides(slideIndex);
 }
 
-// Auto slide
+// Automatically go to next slide every 4 seconds
 function nextSlide() {
     slideIndex++;
     showSlides(slideIndex);
 }
-
 setInterval(nextSlide, 4000);
 
 // Visitor Counter Animation
 function animateCounter() {
-    const counter = document.getElementById('followers-count');
-    let count = 12450;
-    let increment = Math.floor(Math.random() * 5) + 1;
-    
+    const counter = document.getElementById('followers-count'); // Counter element
+    let count = 12450; // Starting count
+    let increment = Math.floor(Math.random() * 5) + 1; // Random increment
     setInterval(() => {
         count += increment;
         counter.textContent = `followers: ${count.toLocaleString('id-ID')}`;
@@ -50,15 +49,14 @@ function animateCounter() {
 // Smooth Scrolling for Navigation Links
 document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        e.preventDefault(); // Prevent default jump
+        const target = document.querySelector(this.getAttribute('href')); // Target section
         if (target) {
             target.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
         }
-        
         // Close mobile menu after click
         if (navMenu.classList.contains('active')) {
             navMenu.classList.remove('active');
@@ -67,12 +65,13 @@ document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
 });
 
 // Article Hover Effects
-const articles = document.querySelectorAll('article');
+const articles = document.querySelectorAll('article'); // All article elements
 articles.forEach(article => {
+    // Move article up slightly on hover
     article.addEventListener('mouseenter', () => {
         article.style.transform = 'translateY(-8px)';
     });
-    
+    // Move article down slightly when not hovered
     article.addEventListener('mouseleave', () => {
         article.style.transform = 'translateY(-5px)';
     });
@@ -80,9 +79,9 @@ articles.forEach(article => {
 
 // Dynamic Welcome Message
 function setWelcomeMessage() {
-    const hour = new Date().getHours();
-    const headerSubtitle = document.querySelector('.header-content p');
-    
+    const hour = new Date().getHours(); // Current hour
+    const headerSubtitle = document.querySelector('.header-content p'); // Subtitle element
+    // Set message based on time of day
     if (hour < 10) {
         headerSubtitle.textContent = '🌅 WAKEYWAKEY! ITS TIME TO GRIND!';
     } else if (hour < 15) {
@@ -96,16 +95,16 @@ function setWelcomeMessage() {
 
 // Initialize functions when page loads
 document.addEventListener('DOMContentLoaded', () => {
-    animateCounter();
-    setWelcomeMessage();
-    showSlides(slideIndex);
+    animateCounter();      // Start counter animation
+    setWelcomeMessage();   // Set welcome message
+    showSlides(slideIndex);// Show initial slide
 });
 
-// Add parallax effect to header
+// Add parallax effect to header on scroll
 window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const header = document.querySelector('header');
-    header.style.transform = `translateY(${scrolled * 0.5}px)`;
+    const scrolled = window.pageYOffset; // Amount scrolled
+    const header = document.querySelector('header'); // Header element
+    header.style.transform = `translateY(${scrolled * 0.5}px)`; // Move header
 });
 
 // Dynamic quick facts rotation
@@ -120,29 +119,28 @@ const quickFacts = [
     "I love meeting new people and building connections wherever I go"
 ];
 
+// Rotate quick facts in sidebar every 10 seconds
 function rotateQuickFacts() {
-    const factsList = document.querySelector('.quick-facts');
-    const listItems = factsList.querySelectorAll('li');
-    
+    const factsList = document.querySelector('.quick-facts'); // List element
+    const listItems = factsList.querySelectorAll('li');        // All list items
     setInterval(() => {
-        // Random fact rotation
+        // Pick a random fact and list item
         const randomIndex = Math.floor(Math.random() * quickFacts.length);
         const randomItemIndex = Math.floor(Math.random() * listItems.length);
         listItems[randomItemIndex].textContent = quickFacts[randomIndex];
     }, 10000);
 }
+setTimeout(rotateQuickFacts, 3000); // Start after 3 seconds
 
-setTimeout(rotateQuickFacts, 3000);
-
+// Dropdown toggle for mobile navigation
 document.addEventListener('DOMContentLoaded', function() {
-    const storiesLink = document.querySelector('.stories-link');
-    const dropdownContent = document.querySelector('.dropdown-content');
-
+    const storiesLink = document.querySelector('.stories-link');      // "Stories" nav link
+    const dropdownContent = document.querySelector('.dropdown-content'); // Dropdown menu
     if (storiesLink && dropdownContent) {
         storiesLink.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 768) { // Only on mobile
                 e.preventDefault();
-                dropdownContent.classList.toggle('show');
+                dropdownContent.classList.toggle('show'); // Toggle dropdown visibility
             }
         });
     }
