@@ -656,3 +656,8 @@ footer {
     display: block; /* Block element */
     background: #fff; /* Background color */
 }
+
+.article-image,
+.article-image2 {
+    margin-bottom: 1.5rem; /* Add more space below the image */
+}
